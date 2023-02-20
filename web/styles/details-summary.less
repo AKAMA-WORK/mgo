@@ -1,0 +1,47 @@
+@import './theme/variables.less';
+
+
+.app-details-summary{
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+
+  .app-details-summary-cities {
+    display: flex;
+    flex-direction: row;
+
+    .app-details-summary-cities-separator {
+      padding: 0 4px;
+      margin-top: -5px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 20px;
+
+      hr {
+        width: 100%;
+        color: @color2;
+      }
+    }
+  }
+  .app-details-summary-cities-button {
+    display: grid;
+    gap: 10px;
+    width: 50%;
+    justify-content: flex-end;
+    button {
+      width: 100%;
+    }
+  }
+}
+.app-app-details-preview-icon {
+  display: flex;
+}
+.app-details-summary-dates {
+  display: flex;
+  align-items: end;
+}
+
+.app-details-summary-dates > div {
+  padding: 8px;
+}

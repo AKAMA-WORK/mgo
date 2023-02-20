@@ -1,0 +1,109 @@
+{#include master}
+{#body}
+<form autocomplete="off" method="post" action="">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="title">
+                            <h4>Rechercher Réservation</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/acceuil.html">Acceuil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Rechercher Réservation</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix mb-20">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Prochain(s) Départ de {msisdn}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pd-20 card-box mb-30">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="data-table table stripe hover nowrap">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Départ le</th>
+                                <th>De</th>
+                                <th>A</th>
+                                <th>Categorie</th>
+                                <th>Place(s)</th>
+                                <th>Paiement</th>
+                                <th>Enregistrement</th>
+                                <th class="datatable-nosort">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {#for bookingAdapter in bookingAdapters}
+                            <tr>
+                                <td>{bookingAdapter.idbooking}</td>
+                                <td>{bookingAdapter.client}</td>
+                                <td>{bookingAdapter.departureDate}</td>
+                                <td>{bookingAdapter.departure}</td>
+                                <td>{bookingAdapter.destination}</td>
+                                <td>{bookingAdapter.category}</td>
+                                <td>{bookingAdapter.bookingplaceCollection}</td>
+                                <td>{bookingAdapter.paymentmethod} - {bookingAdapter.paymentid} </td>
+                                <td>{bookingAdapter.boarding ? 'OUI' : 'NON'}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                           href="#" role="button" data-toggle="dropdown">
+                                            <i class="dw dw-more"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                            <a class="dropdown-item" href="/reservation/confirmation.html?id={bookingAdapter.idbooking}"><i class="dw dw-edit"></i> Mettre à jour</a>
+                                            <a class="dropdown-item" href="/reservation/bagages.html?id={bookingAdapter.idbooking}"><i class="dw dw-bus"></i> Bagages</a>
+                                            <a class="dropdown-item" id="print-ticket-action" href="/reservation/generate-ticket.png?id={bookingAdapter.idbooking}"><i class="icon-copy dw dw-print"></i> Imprimer ticket</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/for}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{/body}
+{#script}
+<script src="/scripts/datatable-setting.js"></script>
+<script src="/scripts/print.js"></script>
+<script>    
+$(function(){
+
+
+ 
+    $('#print-ticket-action').click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        const url = window.location.origin+$(this).attr('href');
+
+        printJS(url,'image')
+
+
+    })
+
+
+});
+
+</script>
+
+{/script}
+{/}

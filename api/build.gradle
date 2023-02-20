@@ -1,0 +1,93 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation "io.quarkus:quarkus-hibernate-orm-rest-data-panache:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-hibernate-orm-panache:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-resteasy-jackson:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-jdbc-mysql:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-resteasy-qute:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-arc:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-elytron-security-jdbc:${quarkusPluginVersion}"
+    implementation "com.google.zxing:core:${zxingVersion}"
+    implementation "com.google.zxing:javase:${zxingVersion}"
+    implementation "org.xhtmlrenderer:flying-saucer-pdf-openpdf:${openPdfVersion}"
+    implementation "io.quarkus:quarkus-smallrye-openapi:${quarkusPluginVersion}"
+    implementation "javax.json:javax.json-api:${jsonApiVersion}"
+//    implementation 'org.mapstruct:mapstruct:1.5.0.RC1'
+    implementation "io.quarkiverse.microprofile:quarkus-microprofile:${quarkiverseVersion}"
+    implementation "io.quarkus:quarkus-swagger-ui:${quarkusPluginVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation("io.quarkus:quarkus-smallrye-opentracing:${quarkusPluginVersion}")
+    implementation("io.opentracing.contrib:opentracing-jdbc:${opentracingJdbcVersion}")
+    implementation("io.quarkus:quarkus-smallrye-metrics:${quarkusPluginVersion}")
+    implementation("io.jaegertracing:jaeger-zipkin:${jaegerZipkinTracingVersion}")
+    implementation("io.quarkus:quarkus-oidc:${quarkusPluginVersion}")
+    implementation("io.quarkus:quarkus-keycloak-authorization:${quarkusPluginVersion}")
+    implementation("io.quarkus:quarkus-liquibase:${quarkusPluginVersion}")
+    implementation ("org.keycloak:keycloak-admin-client:${keycloakVersion}")
+
+
+    // Socketio
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'io.socket:socket.io-server:3.0.2'
+    implementation "org.eclipse.jetty:jetty-server:${jettyVersion}"
+    implementation "org.eclipse.jetty:jetty-servlets:${jettyVersion}"
+    implementation "org.eclipse.jetty:jetty-servlet:${jettyVersion}"
+    implementation "org.eclipse.jetty.websocket:websocket-server:${jettyVersion}"
+    implementation "io.socket:engine.io-server:${engineIoServerVersion}"
+    implementation "io.socket:engine.io-server-jetty:${engineIoServerVersion}"
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.53'
+
+
+
+    // end socketio
+
+
+    // test
+    implementation("io.quarkus:quarkus-scheduler:${quarkusPluginVersion}")
+
+    implementation project(':shared')
+    implementation project(':qs')
+
+	testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+	testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    testImplementation "io.quarkus:quarkus-junit5:${quarkusPluginVersion}"
+    testImplementation "io.quarkus:quarkus-test-h2:${quarkusPluginVersion}"
+    testImplementation "io.quarkus:quarkus-jdbc-h2:${quarkusPluginVersion}"
+    testImplementation "io.rest-assured:rest-assured:5.1.1"
+    testImplementation "io.smallrye.reactive:smallrye-reactive-messaging-in-memory:3.18.0"
+
+    testImplementation 'io.quarkus:quarkus-junit5'
+    
+
+   // testImplementation 'io.rest-assured:rest-assured'
+}
+
+
+group 'com.mgo'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}

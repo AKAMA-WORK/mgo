@@ -1,0 +1,59 @@
+{#include master}
+{#style}
+<link rel="stylesheet" type="text/css" href="/styles/reservation/ajout.css">
+{/style}
+{#body}
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+
+        <div class="pd-20 card-box mb-30">
+            <div class="clearfix">
+                <h4 class="text-blue h4">Résérvation - {bookingAdapter.msisdn} au nom de {bookingAdapter.client} ;
+                    Catégorie {bookingAdapter.category} ; Départ {bookingAdapter.departureDate}; Places : {bookingAdapter.bookingplaceCollection} </h4>
+                <h4 class="mb-30">{bookingAdapter.departure} -> {bookingAdapter.destination}</h4>
+            </div>
+            <div class="wizard-content">
+                <form method="post" id="form-reservation" autocomplete="off" class="tab-wizard wizard-circle wizard">
+                    <input type="hidden" name="idbooking" value="{booking.idbooking}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Paiement</h3>
+                            <div class="form-group">
+                                <label>Montant (Ar)</label>
+                                <input value="{bookingAdapter.amount}" name="montant" id="montant" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Mode de paiement</label>
+                                <select required id="mode_paiement" class="form-control" name="mode_paiement">
+                                    {#for paymentmethod in paymentmethods}
+                                    <option  value="{paymentmethod.idpaymentmethod}" {#if paymentmethod.idpaymentmethod == booking.paymentmethod.idpaymentmethod }selected {/if}>{paymentmethod.name}</option>
+                                    {/for}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Référence de paiement</label>
+                                <input name="reference" type="text" value="{booking.paymentid}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Enregistrement</h3>
+                            <div class="form-group">
+                                <input {booking.boarding ? 'disabled' : ''} name="isenregistre" id="i" type="checkbox" {booking.boarding ? 'checked' : ''} > <label>client enregistré {#if booking.boarding}Le  {bookingAdapter.boardingDate}{/if}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{/body}
+{#script}
+<script src="/scripts/steps-setting.js"></script>
+{/script}
+{/}

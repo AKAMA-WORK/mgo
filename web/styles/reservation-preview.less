@@ -1,0 +1,189 @@
+@import './theme/variables.less';
+
+
+
+.app-booking-preview {
+  border-radius: 5px;
+  .ant-card-head {
+    background: @color3;
+    min-height: 34px;
+
+    .ant-card-head-title {
+      padding: 4px 0;
+    }
+  }
+  .ant-card-body {
+    padding: 0;
+  }
+}
+.app-booking-preview-title {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  .app-booking-preview-title-company-voir-plus {
+    text-align: right;
+    margin: auto;
+    margin-right: 15px;
+  }
+}
+
+.app-booking-preview-title-category {
+  background: @color1;
+  border-radius: 5px;
+  color: #fff;
+  padding: 2px;
+  margin-left: 8px;
+  font-weight: 700;
+}
+
+.app-booking-preview-body {
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: @screen-lg) {
+    flex-direction: column;
+  }
+}
+
+.app-booking-preview-body > div {
+  padding: 24px;
+}
+
+.app-booking-preview-body-company {
+  text-align: center;
+}
+
+.app-booking-preview-body-description {
+  flex-grow: 1;
+  padding: 0 24px;
+
+  @media (max-width: @screen-lg) {
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+.app-booking-preview-body-price-item {
+  display: flex;
+  justify-content: space-between;
+ // height: 32px;
+}
+
+.app-booking-preview-body-price-action  {
+  display: grid;
+  gap: 10px;
+  button {
+    width: 100%;
+  }
+}
+
+  
+
+.app-booking-preview-body-description-vehicule{
+  display: flex;
+  gap: 30px;
+  .app-app-booking-preview-icon{
+    text-align: center;
+    margin: 0 8px;
+    display: flex;
+  }
+}
+
+.app-app-booking-preview-icon-name{
+  font-weight: 600;
+  .app-app-booking-preview-icon-name-name {
+    color: @color1;
+  }
+  .app-app-booking-preview-icon-name-value{
+    color: @color4;
+  }
+}
+
+.app-booking-preview-body-description-extra{
+  padding: 12px 0;
+}
+.app-booking-preview-body-description-extra-title{
+  color: @color1;
+  font-weight: 500;
+}
+
+.app-booking-preview-body-price-item-title{
+  padding-right: 24px;
+}
+.app-booking-preview-body-price-item-content, .app-booking-preview-body-price-item-title {
+  display: flex;
+  flex-direction: column;
+  font-weight: 800;
+  justify-content: center;
+}
+
+.app-booking-preview-body-price-item.app-booking-preview-body-price-not-last {
+  border-bottom: 1px solid @color9;
+  color: @color1;
+}
+.app-booking-preview-body-price-item-title {
+
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.app-booking-preview-body-price-item.app-booking-preview-body-price-not-last .app-booking-preview-body-price-item-content{
+  color: @color4;
+  font-weight: 400; 
+}
+.app-booking-preview-body-price-item.app-booking-preview-body-price-last .app-booking-preview-body-price-item-content {
+   color: @color4;
+   font-weight: 700; 
+}
+.app-booking-preview-body-price-item{
+     padding: 12px 0;
+}
+
+.app-booking-preview-body-price,.app-booking-preview-body-company {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+.app-booking-preview-body-price,.app-booking-preview-body-description{
+  border-left: 1px solid @color9;
+  padding-left: 12px;
+}
+
+.app-booking-preview-body-selection-places-description-extra-price {
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: @screen-lg) {
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+.app-booking-preview-body-selection-places {
+  flex-grow: 1;
+}
+
+.app-booking-preview-selection-places .app-booking-preview-body-description-vehicule,
+
+.app-booking-preview-selection-places  .app-booking-preview-body-selection-places-description-extra-price{
+  border-bottom: 1px solid @color9;
+  padding-bottom: 8px;
+  padding-top: 8px;
+
+  @media (max-width: @screen-lg) {
+    border-bottom: none;;
+  }
+}
+
+.app-booking-preview-body-price {
+  @media (max-width: @screen-lg) {
+    border: none;;
+  }
+}
+
+
+.app-booking-preview-body-selection-places-seats-legend {
+  padding-top: 12px;
+
+}

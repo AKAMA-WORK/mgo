@@ -1,0 +1,375 @@
+{#include master} {#style}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/styles/manifold/form.css"
+/>
+
+<style>
+   #manifold-table tbody tr td {
+    border: 1px solid;
+    text-align: center;
+    width: {columnWidth}%;
+  }
+
+</style>
+
+{/style} {#body}
+<div class="min-height-200px">
+<div class="pd-ltr-20 xs-pd-20-10">
+  <form
+  method="post"
+  id="manifold-form"
+  autocomplete="off"
+  action="/manifold/form.html";
+>
+  <input type="hidden" name="manifolds" id="manifolds"/>
+  <input type="hidden" name="depart" value="{departure.iddeparture}" />
+
+  <div class="min-height-200px">
+    <div class="pd-20 card-box mb-30">
+    <h1 id="title">Manifold</h1>
+
+    <ul id="departureInfo">
+      <li>
+        <strong>Coopérative : </strong>
+        <span>{company.name}</span>
+      </li>
+      <li>
+        <strong>Date : </strong>
+        <span>{departureDatetime}</span>
+      </li>
+      <li>
+        <strong>Départ : </strong>
+        <span>{departure.startin.name}</span>
+      </li>
+      <li>
+        <strong>Destination : </strong>
+        <span>{departure.destination.name}</span>
+      </li>
+    </ul>
+
+    <div class="mainfold">
+      <div id="immatriculation" class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <input
+              id="carmatricule"
+              name="carmatricule"
+              value="{departure.carmatricule}"
+              type="text"
+              class="form-control"
+              placeholder="Numéro vehicule"
+            />
+          </div>
+        </div>
+      </div>
+      <table
+        cellpadding="5"
+        class="b b-2x b-dark"
+        role="grid"
+        style="margin: auto"
+        id="manifold-table"
+      >
+        <tbody>
+          {#for line in lines}
+              <tr>
+                  {#for column in columns}
+                      <td>
+                          {#for placeInfo in manifoldPlaceInfos}
+                              {#if placeInfo.y == column && placeInfo.x == line }  
+
+                                  {#if placeInfo.place != -1} 
+                                      {#if placeInfo.place == -2}
+                                          <div class="place-number">
+                                              <span> C </span>
+                                          </div>
+                                          <select
+                                            required
+                                            class="custom-select2 form-control"
+                                            name="driver1"
+                                            style="width: 100%; height: 38px"
+                                          >
+                                          <option></option>
+                                            {#for employee in drivers}
+                                            <option value="{employee.idcompanyemployee}"
+                                            
+                                            {#if departure && departure.driver && departure.driver.idcompanyemployee == employee.idcompanyemployee }selected {/if}
+                                            >
+                                              {employee.name}
+                                            </option>
+                                            {/for}
+                                          </select>
+
+                                      {#else}
+                                          <div class="place-number  {#if placeInfo.occuped == false}free{#else}occuped{/if}"
+                                          data-iddeparturemanifold="{placeInfo.iddeparturemanifold}"
+                                          data-place="{placeInfo.place}"
+                                          data-civility="{placeInfo.civility}"
+                                          data-fname="{placeInfo.fname}"
+                                          data-lname="{placeInfo.lname}"
+                                          data-address="{placeInfo.address}"
+                                          data-idnumber="{placeInfo.idnumber}"
+                                          data-idissuedate="{placeInfo.idissuedate}"
+                                          data-idissuelocation="{placeInfo.idissuelocation}"
+                                          data-idduplicatadate="{placeInfo.idduplicatadate}"
+                                          data-idduplicatalocation="{placeInfo.idduplicatalocation}"
+                                          data-contactcivility="{placeInfo.contactcivility}"
+                                          data-contactfname="{placeInfo.contactfname}"
+                                          data-contactlname="{placeInfo.contactlname}"
+                                          data-contactaddress="{placeInfo.contactaddress}"
+                                          data-contactphone="{placeInfo.contactphone}"
+                                          data-contactphone1="{placeInfo.contactphone1}"
+                                          data-daty="{placeInfo.daty}"
+                                          data-idtype="{placeInfo.idtype}"
+                                          data-fullname="{placeInfo.fullname}"
+                                          data-idfullinfo="{placeInfo.idfullinfo}"
+                                          data-idshortinfo="{placeInfo.idshortinfo}"
+                                          data-contactfullname="{placeInfo.contactfullname}"
+                                          data-contactallphones="{placeInfo.contactallphones}"
+                                          
+                                          
+                                          >
+                                              <span>{placeInfo.place}</span>
+                                          </div>
+                                          <div class="fullname">{placeInfo.fullname}</div>
+                                          <div class="idshortinfo">{placeInfo.idshortinfo}</div>
+                                      {/if}
+                                     
+                                  {/if}        
+                              {/if}
+                          {/for}
+                      </td>
+                  {/for}
+              </tr>
+          {/for}
+        </tbody>
+      </table>
+      <div id="submit-container">
+        <a class="btn btn-outline-secondary print-manifold-action" href="/manifold/generate-manifold.pdf?departure_id={departure.iddeparture}">Imprimer</a>
+        <button type="button" class="btn btn-primary" id="manifold-validate-form">Valider</button>
+       </div>
+    </div>
+  </div>
+
+
+  </form>
+</div>
+</div>
+<div class="modal fade" id="manifold-client-form" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" >Voyageur</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+              <form
+              method="post"
+              id="manifold-client-form-form"
+              autocomplete="off"
+            >
+            <input type="hidden" name="iddeparturemanifold"/>
+            <input type="hidden" name="place" id="manifold-client-form-place-number"/>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Civilité</label>
+                  <select name="civility" class="form-control">
+                      <option selected>Mr</option>
+                      <option>Mme</option>
+                      <option>Mlle</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input required name="fname"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Type de pièce d'identité</label>
+                  <select
+                    class="custom-select2 form-control"
+                    name="idtype"
+                    style="width: 100%; height: 38px"
+                  >
+                    {#for idtype in idtypes}
+                    <option value="{idtype.ididtype}"
+                    {#if count == 1}selected{/if} 
+                    >
+                      {idtype.idtypecol}
+                    </option>
+                    {/for}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Pièce d'identité n° </label>
+                  <input name="idnumber"  type="text" class="form-control">
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <button type="button" class="btn btn-link" id="switch-mode-button" data-mode="simple">Plus d'informations ...</button>
+            </div>
+
+            <div class="row advanced-mode">
+            
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Pièce d'identité fait à </label>
+                  <input name="idissuelocation"  type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Pièce d'identité fait le </label>
+                  <input name="idissuedate"
+                                   class="form-control datetimepicker-range"
+                                   placeholder="Choisir date" type="text">
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="row advanced-mode">
+           
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Duplicata délivré à </label>
+                  <input name="idduplicatalocation"  type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Duplicata délivré le </label>
+                  <input name="idduplicatadate"
+                                   class="form-control datetimepicker-range"
+                                   placeholder="Choisir date" type="text">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row advanced-mode">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Adresse</label>
+                  <input name="address"  type="text" class="form-control">
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="row advanced-mode">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Civilité du contact</label>
+                  <select name="contactcivility" class="form-control">
+                     <option></option>
+                      <option>Mr</option>
+                      <option>Mme</option>
+                      <option>Mlle</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Nom du contact</label>
+                  <input name="contactfname"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row advanced-mode">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Adresse du contact</label>
+                  <input name="contactaddress"  type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Tél. du contact 1</label>
+                  <input name="contactphone"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row advanced-mode">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Tél. du contact 2</label>
+                  <input name="contactphone1"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" id="validate-client-form">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/body} {#script}
+<script>
+
+  // WHY: I dont like call api to fetch idtypes 
+   var ALL_ID_TYPES = JSON.parse('{idtypesJsonString.raw}')
+
+
+   $(function(){
+    
+    
+     
+    $('.print-manifold-action').click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        const url = window.location.origin+$(this).attr('href');
+
+        printJS(url)
+
+
+    })
+
+
+});
+
+
+
+</script>
+
+<script src="/scripts/print.js"></script>
+<script src="/scripts/manifold-form.js"></script>
+{#if hasMessage}
+<script>
+  swal({
+    /*title: 'Bien!',*/
+    text: "{message}",
+    type: "success",
+    showCancelButton: false,
+    confirmButtonClass: "btn btn-success",
+    cancelButtonClass: "btn btn-danger",
+  });
+</script>
+{/if} {/script} {/}

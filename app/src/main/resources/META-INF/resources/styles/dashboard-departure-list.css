@@ -1,0 +1,9 @@
+.filters input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+#depart-list-table {
+    max-width: 100% !important;
+}

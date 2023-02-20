@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <changeSet  id="1"  author="mgo">
+        <createTable  tableName="person">
+            <column  name="id_person"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="first_name"  type="varchar(255)"/>
+            <column  name="last_name"  type="varchar(255)"/>
+            <column name="creation_date" type="datetime" defaultValueDate="now"/>
+            <column name="creation_id_person" type="int"/>
+            <column name="update_date" type="datetime" defaultValueDate="now"/>
+            <column name="update_id_person" type="int"/>
+            <column name="creation_client_id" type="varchar(255)"/>
+            <column name="update_client_id" type="varchar(255)"/>
+            <column name="civility" type="varchar(20)"/>
+            <column name="phone_number" type="varchar(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="email" type="varchar(510)">
+                <constraints unique="true"/>
+            </column>
+            <column name="address" type="varchar(510)"/>
+            <column name="id_number" type="varchar(100)"/>
+            <column name="id_issue_date" type="datetime"/>
+            <column name="id_issue_location" type="varchar(510)"/>
+            <column name="id_duplicate_date" type="datetime"/>
+            <column name="id_duplicate_location" type="varchar(510)"/>
+            <column name="id_type" type="varchar(50)"/>
+            <column name="id_user" type="varchar(255)">
+                <constraints unique="true"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+
+
+</databaseChangeLog>

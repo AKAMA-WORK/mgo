@@ -1,0 +1,171 @@
+@import './theme/variables.less';
+
+
+
+.app-departure-preview {
+  border-radius: 5px;
+  .ant-card-head {
+    background: @color3;
+    min-height: 34px;
+
+    .ant-card-head-title {
+      padding: 4px 0;
+    }
+  }
+  .ant-card-body {
+    padding: 0;
+  }
+}
+.app-departure-preview-title {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.app-departure-preview-title-category {
+  background: @color1;
+  border-radius: 5px;
+  color: #fff;
+  padding: 2px;
+  margin-left: 8px;
+  font-weight: 700;
+}
+
+.app-departure-preview-body {
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: @screen-lg) {
+    flex-direction: column;
+  }
+}
+
+.app-departure-preview-body > div {
+  padding: 24px;
+}
+
+.app-departure-preview-body-company {
+  text-align: center;
+}
+
+.app-departure-preview-body-description {
+  flex-grow: 1;
+  padding: 0 24px;
+
+  @media (max-width: @screen-lg) {
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+.app-departure-preview-body-price-item {
+  display: flex;
+  justify-content: space-between;
+ // height: 32px;
+}
+
+.app-departure-preview-body-price-action button {
+  width: 100%;
+}
+
+.app-departure-preview-body-description-vehicule{
+  display: flex;
+
+  .app-app-departure-preview-icon{
+    text-align: center;
+    margin: 0 8px;
+  }
+}
+
+.app-app-departure-preview-icon-name{
+  color: @color1;
+  font-weight: 600;
+}
+
+.app-departure-preview-body-description-extra{
+  padding: 12px 0;
+}
+.app-departure-preview-body-description-extra-title{
+  color: @color1;
+  font-weight: 500;
+}
+
+.app-departure-preview-body-price-item-title{
+  padding-right: 24px;
+}
+.app-departure-preview-body-price-item-content, .app-departure-preview-body-price-item-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app-departure-preview-body-price-item.app-departure-preview-body-price-not-last {
+  border-bottom: 1px solid @color9;
+  color: @color1;
+}
+.app-departure-preview-body-price-item-title {
+
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.app-departure-preview-body-price-item.app-departure-preview-body-price-not-last .app-departure-preview-body-price-item-content{
+  color: @color4;
+  font-weight: 400; 
+}
+.app-departure-preview-body-price-item.app-departure-preview-body-price-last .app-departure-preview-body-price-item-content {
+   color: @color4;
+   font-weight: 700; 
+}
+.app-departure-preview-body-price-item{
+     padding: 12px 0;
+}
+
+.app-departure-preview-body-price,.app-departure-preview-body-company {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+.app-departure-preview-body-price,.app-departure-preview-body-description{
+  border-left: 1px solid @color9;
+  padding-left: 12px;
+}
+
+.app-departure-preview-body-selection-places-description-extra-price {
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: @screen-lg) {
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+.app-departure-preview-body-selection-places {
+  flex-grow: 1;
+}
+
+.app-departure-preview-selection-places .app-departure-preview-body-description-vehicule,
+
+.app-departure-preview-selection-places  .app-departure-preview-body-selection-places-description-extra-price{
+  border-bottom: 1px solid @color9;
+  padding-bottom: 8px;
+  padding-top: 8px;
+
+  @media (max-width: @screen-lg) {
+    border-bottom: none;;
+  }
+}
+
+.app-departure-preview-body-price {
+  @media (max-width: @screen-lg) {
+    border: none;;
+  }
+}
+
+
+.app-departure-preview-body-selection-places-seats-legend {
+  padding-top: 12px;
+
+}

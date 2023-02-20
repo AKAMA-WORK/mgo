@@ -1,0 +1,165 @@
+{#include master}
+{#body}
+<form autocomplete="off" method="post" action="">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="title">
+                            <h4>Ajouter départ</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/acceuil.html">Acceuil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Ajouter départ</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix mb-20">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Formulaire</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label for="ville_depart">Départ</label>
+                            <select required id="ville_depart" class="custom-select2 form-control" name="ville_depart"
+                                    style="width: 100%; height: 38px;">
+                                {#for city in cities}
+                                <option value="{city.idcity}">{city.name}</option>
+                                {/for}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ville_destination">Destination</label>
+                            <select required id="ville_destination" class="custom-select2 form-control"
+                                    name="ville_destination"
+                                    style="width: 100%; height: 38px;">
+                                {#for city in cities}
+                                <option value="{city.idcity}">{city.name}</option>
+                                {/for}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label for="category">Catégorie</label>
+                            <select required id="category" class="custom-select2 form-control"
+                                    name="category"
+                                    style="width: 100%; height: 38px;">
+                                {#for category in categories}
+                                <option value="{category.idcategory}">{category.name}</option>
+                                {/for}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="frais">Frais</label>
+                            <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                                <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
+                                    <span class="input-group-text">Ar</span>
+                                </span>
+                                <input required id="frais" type="number" name="frais" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle">Choisir Vehicule</label>
+                            <select required id="vehicle" multiple class="custom-select2 form-control" name="vehicle"
+                                    style="width: 100%; height: 38px;">
+                                {#for vehicle in vehicles}
+                                <option value="{vehicle.id}">{vehicle.description}</option>
+                                {/for}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="mb-20">
+                            <label for="date_depart">Choisir Date Départ <i class="icon-copy fa fa-info-circle"
+                                                                            aria-hidden="true" data-toggle="tooltip"
+                                                                            title="Vous pouvez choisir un interval de date"></i></label>
+                            <input required id="date_depart" name="date_depart"
+                                   class="form-control datetimepicker-range"
+                                   placeholder="Choisir date" type="text">
+                        </div>
+                        <div class="mb-20">
+                            <label for="heure_depart">Choisir Heure Départ</label>
+                            <select required id="heure_depart" multiple class="custom-select2 form-control"
+                                    name="heure_depart" style="width: 100%; height: 38px;">
+                                <optgroup label="Matin">
+                                    <option value="04:00">04:00</option>
+                                    <option value="04:30">04:30</option>
+                                    <option value="05:00">05:00</option>
+                                    <option value="05:30">05:30</option>
+                                    <option value="06:00">06:00</option>
+                                    <option value="06:30">06:30</option>
+                                    <option value="07:00">07:00</option>
+                                    <option value="07:30">07:30</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="08:30">08:30</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="09:30">09:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:00">12:00</option>
+                                </optgroup>
+                                <optgroup label="Après-midi">
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="18:30">18:30</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="19:30">19:30</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="20:30">20:30</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        <button type="reset" class="btn btn-secondary">Réinitiliser</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{/body}
+{#script}
+<script src="/plugins/apexcharts/apexcharts.min.js"></script>
+<script src="/scripts/dashboard.js"></script>
+{#if hasMessage}
+<script>
+    swal(
+                {
+                    /*title: 'Bien!',*/
+                    text: '{message}',
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger'
+                }
+            );
+
+</script>
+{/if}
+{/script}
+{/}

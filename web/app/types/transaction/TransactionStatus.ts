@@ -1,0 +1,1 @@
+export type TransactionStatus = 'INIT' | 'PENDING' | 'COMPLETED' | 'FAILED'

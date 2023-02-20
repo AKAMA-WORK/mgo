@@ -1,0 +1,78 @@
+version: '3'
+services:
+  mysql:
+    container_name: m-go-mysql
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3307:3306
+    env_file:
+      - .env
+
+  adminer:
+    container_name: m-go-adminer
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8010:8080
+    env_file:
+      - .env
+
+  prometheus:
+    image: prom/prometheus
+    container_name: m-go-prometheus
+    ports:
+      - 8060:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  keycloak:
+    container_name: m-go-keycloak
+    command: start
+    image: quay.io/keycloak/keycloak:19.0.3
+    volumes:
+      - ./themes/:/opt/keycloak/themes/mgo/
+      - ./providers/:/opt/keycloak/providers/
+    depends_on:
+      - mysql
+    ports:
+      - "8070:8080"
+    env_file:
+      - .env
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.14
+    container_name: m-go-jaeger
+    ports:
+      - 5778:5778
+      - 9411:9411
+      - 14250:14250
+      - 14268:14268
+      - 16686:16686
+      - 5775:5775/udp
+      - 6831:6831/udp
+      - 6832:6832/udp
+    env_file:
+      - .env
+
+  api:
+    container_name: m-go-api
+    build:
+      context: ./
+      dockerfile: api.Dockerfile
+    restart: always
+    ports:
+      - 8090:8090
+
+#www.m-go.voyage > http://localhost:8040
+#socketio.m-go.voyage > http://localhost:8041
+#m-go.voyage > http://localhost:8040
+#agence.m-go.voyage > http://localhost:8080
+#api.m-go.voyage > http://localhost:8090
+#accounts.m-go.voyage > http://localhost:8070
+#prometheus.m-go.voyage > http://localhost:8060
+#jaeger.m-go.voyage > http://localhost:16686
+#payment.m-go.voyage > http://localhost:8050
+#api/src/main/java/com/mgo/MGOApplication.java > https://accounts.m-go.voyage/realms/mgo/protocol/openid-connect/token
+#payment-service/src/main.ts > 

@@ -1,0 +1,90 @@
+<div class="row" style="padding-bottom: 24px;">
+  <div class="col-md-12">
+    <table id="depart-list-table" class="data-table table stripe hover nowrap">
+      <thead style="position: sticky; top: 70px; background: #fff">
+        <tr>
+          <th>#</th>
+          {#if showDeparturesCities}
+          <th>Départ</th>
+          <th>Destination</th>
+          {/if}
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Categorie</th>
+          <th>Statut</th>
+          <th>Vehicule</th>
+          <th>Places Disponibles</th>
+          <th class="datatable-nosort">Action</th>
+        </tr>
+        {#if showDeparturesCities}
+        <tr class="filters">
+          <th></th>
+          <th class="filterable">Départ</th>
+          <th class="filterable">Destination</th>
+          <th class="filterable">Date</th>
+          <th class="filterable">Heure</th>
+          <th class="filterable">Categorie</th>
+          <th class="filterable">Statut</th>
+          <th class="filterable">Vehicule</th>
+          <th class="filterable">Places Disponibles</th>
+          <th></th>
+          {/if}
+      </tr>
+
+      </thead>
+      <tbody>
+        {#for departure in departures}
+        <tr>
+          <td>{departure.id}</td>
+          {#if showDeparturesCities}
+          <td>{departure.villeDepart}</td>
+          <td>{departure.villeDestination}</td>
+          {/if}
+          <td>{departure.dateDepart}</td>
+          <td>{departure.heureDepart}</td>
+          <td>{departure.category}</td>
+          <td>{departure.status}</td>
+          <td>{departure.vehicle}</td>
+          <td style="text-align: right;">{departure.placeLibre}</td>
+          <td>
+            <div class="dropdown">
+              <a
+                class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+              >
+                <i class="dw dw-more"></i>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
+              >
+                <a
+                  class="dropdown-item"
+                  href="/depart/detail.html?id={departure.id}"
+                  ><i class="dw dw-eye"></i> Voir Détails</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="/reservation/ajouter.html?departure_id={departure.id}"
+                  ><i class="dw dw-bus"></i> Ajouter Réservation</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="/manifold/form.html?departure_id={departure.id}"
+                  ><i class="dw dw-clipboard1"></i> Manifold
+                </a>
+                <a
+                  class="dropdown-item print-manifold-action"
+                  href="/manifold/generate-manifold.pdf?departure_id={departure.id}"
+                  ><i class="icon-copy dw dw-print"></i> Imprimer Manifold</a
+                >
+              </div>
+            </div>
+          </td>
+        </tr>
+        {/for}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+
+
+  #manifold-table .place-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    border: 1px solid #009efb;
+    margin: auto;
+    color: #009efb;
+    cursor: pointer;
+  }
+
+#manifold-table tbody tr td:hover .place-number {
+    background: #009efb;
+    color: #FFF;
+    cursor: pointer;
+}
+
+#manifold-table tbody tr td:active .place-number {
+    background: #066ca7;
+    color: #FFF;
+    cursor: pointer;
+}
+
+
+
+  #manifold-table .place-number.free {
+    border: 1px solid #999;
+    color: #999;
+  }
+
+  #manifold-table tbody tr td:hover .place-number.free {
+    background: #999;
+    color: #FFF;
+}
+
+#manifold-table tbody tr td:active .place-number.free {
+    background: rgb(87, 86, 86);
+    color: #FFF;
+}
+
+
+
+
+
+#manifold-table tbody tr td{
+    cursor: pointer;
+}
+
+
+
+
+  #manifold-table .place-number span {
+    display: block;
+    margin-top: 20%;
+  }
+
+  #manifold-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #manifold-table tbody tr td {
+      padding: 5px;
+  }
+
+  #immatriculation {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  #title {
+    text-align: center;
+  }
+
+  #departureInfo {
+    list-style-type: none;
+  }
+
+  #submit-container {
+    display: flex;
+    justify-content: end;
+    margin: 10px;
+  }
+
+  #manifold-client-form .modal-body{
+    padding: 24px;
+  }
+
+  .print-manifold-action {
+    margin-right: 10px;
+  }

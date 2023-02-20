@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <style>
+      .container {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+      }
+
+      .place-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        text-align: center;
+        border: 1px solid #000;
+        margin: auto;
+      }
+      .place-number span {
+        display: block;
+        margin-top: 25%;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      table tbody tr td {
+        border: 1px solid;
+        text-align: center;
+        width: {columnWidth}%;
+      }
+
+      #immatriculation {
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      #title {
+        text-align: center;
+      }
+
+      #departureInfo {
+        list-style-type: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="title">Manifold</h1>
+
+      <ul id="departureInfo">
+        <li>
+          <strong>Coopérative : </strong>
+          <span>{company.name}</span>
+        </li>
+        <li>
+          <strong>Date : </strong>
+          <span>{departureDatetime}</span>
+        </li>
+        <li>
+          <strong>Départ : </strong>
+          <span>{departure.startin.name}</span>
+        </li>
+        <li>
+          <strong>Destination : </strong>
+          <span>{departure.destination.name}</span>
+        </li>
+      </ul>
+
+      <div class="mainfold">
+        <div id="immatriculation">
+          {#if departure.carmatricule} {departure.carmatricule} {#else} Numéro
+          vehicule non renseigné {/if}
+        </div>
+        <table
+          cellpadding="5"
+          class="b b-2x b-dark"
+          role="grid"
+          style="margin: auto"
+        >
+          <tbody>
+            {#for line in lines}
+                <tr>
+                    {#for column in columns}
+                        <td>
+                            {#for placeInfo in manifoldPlaceInfos}
+                                {#if placeInfo.y == column && placeInfo.x == line }  
+
+                                    {#if placeInfo.place != -1} 
+                                        {#if placeInfo.place == -2}
+                                            <div class="place-number">
+                                                <span> C </span>
+                                            </div>
+                                        {#else}
+                                            <div class="place-number">
+                                                <span>{placeInfo.place}</span>
+                                            </div>
+                                        {/if}
+                                        <div>{placeInfo.fullname}</div>
+                                        {#if placeInfo.idshortinfo}
+                                            <div>{placeInfo.idshortinfo}</div>
+                                        {/if}
+                                    {/if}        
+                                {/if}
+                            {/for}
+                        </td>
+                    {/for}
+                </tr>
+            {/for}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

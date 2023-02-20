@@ -1,0 +1,17 @@
+
+.dark-logo, .light-logo {
+    height: 100%;
+    margin: auto;
+}
+
+.brand-logo {
+    height: unset;
+}
+
+.loader-logo {
+    height: 200px
+}
+
+.loader-logo > img {
+    height: 100%
+}

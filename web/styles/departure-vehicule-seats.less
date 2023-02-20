@@ -1,0 +1,90 @@
+@import './theme/variables.less';
+
+
+.app-departure-vehicule-seats{
+  display: flex;
+  padding: 12px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+
+}
+
+.app-departure-vehicule-seats> form >  button {
+  margin: 12px 0;
+}
+
+
+.app-departure-vehicule-seats-selected button, .app-departure-vehicule-seats-unavailable button, .app-departure-vehicule-seats-available button {
+  color: #fff;
+}
+
+
+.app-departure-vehicule-seats-driver {
+   background-image: url("/images/seats/driver.svg");
+}
+
+.app-departure-vehicule-seats-available {
+  cursor: pointer;
+
+  background-image: url("/images/seats/available.svg");
+
+  &:hover{
+    background-image: url("/images/seats/available_hover.svg");
+
+  }
+  &:active{
+    background-image: url("/images/seats/available_active.svg");
+
+  }
+}
+
+.app-departure-vehicule-seats-unavailable {
+  background-image: url("/images/seats/unavailable.svg");
+}
+
+.app-departure-vehicule-seats-selected {
+  cursor: pointer;
+
+  background-image: url("/images/seats/selected.svg");
+
+  &:hover{
+    background-image: url("/images/seats/selected_hover.svg");
+
+  }
+  &:active{
+    background-image: url("/images/seats/selected_active.svg");
+
+  }
+}
+
+.app-departure-vehicule-seats-driver, .app-departure-vehicule-seats-available,.app-departure-vehicule-seats-unavailable ,.app-departure-vehicule-seats-selected {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 55px;
+  width: 40px;
+
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+
+}
+
+
+.app-departure-vehicule-seats-driver,.app-departure-vehicule-seats-unavailable {
+  cursor: not-allowed;
+}
+
+
+.app-departure-vehicule-seats-table-container {
+  background: @color9;
+  padding: 12px;
+  border-radius: 5px;
+
+}

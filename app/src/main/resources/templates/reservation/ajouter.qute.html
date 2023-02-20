@@ -1,0 +1,197 @@
+{#include master}
+{#style}
+<link rel="stylesheet" type="text/css" href="/plugins/jquery-steps/jquery.steps.css">
+<link rel="stylesheet" type="text/css" href="/styles/reservation/ajout.css">
+{/style}
+{#body}
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <h4 class="text-blue h4">Résérvation</h4>
+                    <p class="mb-30">compléter les étapes</p>
+                </div>
+                <div class="wizard-content">
+                    <form method="post" id="form-reservation" autocomplete="off" class="tab-wizard wizard-circle wizard">
+                        {#if departure}
+                        <input type="hidden" name="depart" value="{departure.iddeparture}" />
+                        <input type="hidden" id="depart-price" value="{departure.price}" />
+                        <input type="hidden" id="depart-info" value="{departureInfo}" />
+                        <input type="hidden" id="depart-ville-depart" value="{departure.startin.name}" />
+                        <input type="hidden" id="depart-ville-destination" value="{departure.destination.name}" />
+                        {#else}
+
+                       <h5>Choisir la destination</h5>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ville_depart" >Départ</label>
+                                        <select required id="ville_depart" class="custom-select2 form-control" name="ville_depart"
+                                                style="width: 100%; height: 38px;">
+                                            {#for city in cities}
+                                            <option value="{city.idcity}">{city.name}</option>
+                                            {/for}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ville_destination" >Destination</label>
+                                        <select required id="ville_destination" class="custom-select2 form-control" name="ville_destination"
+                                                style="width: 100%; height: 38px;">
+                                            {#for city in cities}
+                                            <option value="{city.idcity}">{city.name}</option>
+                                            {/for}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input required id="date_depart" name="date_depart"
+                                               class="form-control datetimepicker-range"
+                                               placeholder="Choisir date" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="button" class="btn btn-primary" id="afficher-depart" value="Afficher départ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="depart-dispo">Départ Disponible</label>
+                                        <select name="depart" required id="depart-dispo" class="custom-select form-control">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </section> 
+                        {/if}
+                        <!-- Step 2 -->
+                        <h5>Choisir Place</h5>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <table _ngcontent-c0="" cellpadding="5" class="b b-2x b-dark" role="grid" style="margin: auto;">
+                                        <tbody id="table-place" _ngcontent-c0="">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Places choisies :</label>
+                                        <input required name="places" id="places" readonly type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 3 -->
+                        <h5>A propos du client & Paiement</h5>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Numero Téléphone</label>
+                                        <input required name="phone" id="phone" type="text" autocomplete="no" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Civilité</label>
+                                        <select id="civilite" name="civilite" class="form-control">
+                                            <option>Mr</option>
+                                            <option>Mme</option>
+                                            <option>Mlle</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nom</label>
+                                        <input required name="nom" id="nom" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Montant</label>
+                                        <input required name="montant" id="montant" type="text" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mode de paiement</label>
+                                        <select required id="mode_paiement" class="form-control" name="mode_paiement">
+                                            {#for paymentmethod in paymentmethods}
+                                            <option value="{paymentmethod.idpaymentmethod}">{paymentmethod.name}</option>
+                                            {/for}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Référence de paiement</label>
+                                        <input name="reference" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 4 -->
+                        <h5>Résumé et Validation</h5>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Destination</th>
+                                                <th>:</th>
+                                                <th id="destination-resume">Destination</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Client</th>
+                                                <th>:</th>
+                                                <th id="client-resume"></th>
+                                            </tr>
+                                            <tr>
+                                                <th>Place</th>
+                                                <th>:</th>
+                                                <th id="place-resume"></th>
+                                            </tr>
+                                            <tr>
+                                                <th>Montant</th>
+                                                <th>:</th>
+                                                <th id="amount-resume"></th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{/body}
+{#script}
+<script src="/plugins/jquery-steps/jquery.steps.js"></script>
+<script src="/scripts/steps-setting.js"></script>
+{#if hasMessage}
+<script>
+    swal(
+                {
+                    /*title: 'Bien!',*/
+                    text: '{message}',
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger'
+                }
+            );
+
+</script>
+{/if}
+{/script}
+{/}

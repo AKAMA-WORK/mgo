@@ -1,0 +1,1 @@
+export type PaymentMethod = "MVOLA" | "ORANGE_MONEY"| "AIRTEL_MONEY" | "CREDIT_CARD"| "CASH"

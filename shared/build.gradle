@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'io.quarkus:quarkus-smallrye-jwt'
+    implementation 'io.quarkus:quarkus-smallrye-jwt-build'
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation "io.quarkus:quarkus-hibernate-orm-rest-data-panache:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-hibernate-orm-panache:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-resteasy-jackson:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-jdbc-mysql:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-resteasy-qute:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-arc:${quarkusPluginVersion}"
+    implementation "io.quarkus:quarkus-elytron-security-jdbc:${quarkusPluginVersion}"
+    implementation "com.google.zxing:core:${zxingVersion}"
+    implementation "com.google.zxing:javase:${zxingVersion}"
+    implementation "org.xhtmlrenderer:flying-saucer-pdf-openpdf:${openPdfVersion}"
+    implementation("io.quarkus:quarkus-oidc:${quarkusPluginVersion}")
+    testImplementation 'io.quarkus:quarkus-junit5'
+  //  implementation 'org.hibernate.orm:hibernate-envers:6.1.2.Final'
+
+    // testImplementation 'io.rest-assured:rest-assured'
+}
+
+group 'com.mgo'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}

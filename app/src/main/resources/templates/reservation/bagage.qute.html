@@ -1,0 +1,72 @@
+{#include master}
+{#style}
+<link rel="stylesheet" type="text/css" href="/styles/reservation/ajout.css">
+{/style}
+{#body}
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+
+        <div class="pd-20 card-box mb-30">
+            <div class="clearfix">
+                <h4 class="text-blue h4">Résérvation - {bookingAdapter.msisdn} au nom de {bookingAdapter.client} ;
+                    Catégorie {bookingAdapter.category} ; Départ {bookingAdapter.departureDate}; Places : {bookingAdapter.bookingplaceCollection} </h4>
+                <h4 class="mb-30">{bookingAdapter.departure} -> {bookingAdapter.destination}</h4>
+            </div>
+            <div class="wizard-content">
+                <form method="post" autocomplete="off" class="tab-wizard wizard-circle wizard">
+                    <input type="hidden" value="{companyconfig.authorizedluggage}" id="company-authorized-luggage" />
+                    <input type="hidden" value="{companyconfig.priceextraluggage}" id="company-price-extra-luggage" />
+                    <input type="hidden" name="idbooking" value="{booking.idbooking}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Bagages</h3>
+                            <div class="form-group">
+                                <label for="luggage-details">Détails</label>
+                                <textarea required name="luggage-details" id="luggage-details" class="form-control">{bookingluggage ? bookingluggage.description : ''}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Poids</label>
+                                <input value="{bookingluggage ? bookingluggage.weight : ''}" type="number" name="weight" id="weight" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Extras</h3>
+                            <div class="form-group">
+                                <label for="extra-weight">Poids</label>
+                                <input value="{bookingextraluggage ? bookingextraluggage.weight : ''}" type="number" name="extra-weight" id="extra-weight" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="extra-weight-amount">Montant (Ar)</label>
+                                <input value="{bookingextraluggage ? bookingextraluggage.amount : ''}" name="extra-weight-amount" id="extra-weight-amount" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Mode de paiement</label>
+                                <option></option>
+                                <select id="mode_paiement" class="form-control" name="mode_paiement">
+                                    {#for paymentmethod in paymentmethods}
+                                    <option  value="{paymentmethod.idpaymentmethod}" {#if bookingextraluggage && bookingextraluggage.paymentmethod && paymentmethod.idpaymentmethod == bookingextraluggage.paymentmethod.idpaymentmethod }selected {/if}>{paymentmethod.name}</option>
+                                    {/for}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Référence de paiement</label>
+                                <input name="reference" type="text" value="{bookingextraluggage ? bookingextraluggage.paymentid : ''}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{/body}
+{#script}
+<script src="/scripts/steps-setting.js"></script>
+<script src="/scripts/bagages.js"></script>
+{/script}
+{/}

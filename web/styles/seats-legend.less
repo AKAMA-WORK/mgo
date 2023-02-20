@@ -1,0 +1,25 @@
+@import './theme/variables.less';
+
+
+.app-seats-legend{
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: @screen-xs) {
+   // flex-direction: column;
+    padding: 0;
+
+    .app-seats-legend-item {
+      text-align: center;
+    }
+  }
+
+
+}
+.app-seats-legend-item span{
+  margin-left: 4px;
+
+
+}
+.app-seats-legend-item img {
+  height: 27px;
+}

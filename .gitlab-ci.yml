@@ -1,0 +1,151 @@
+variables:
+  DOCKER_API_VERSION: '1.39'
+
+stages:
+  - build
+  - test
+  - deploy
+
+
+.build_image: &build_image
+  stage: build
+  when: manual
+  image: docker:latest
+  services:
+    - docker:18.09-dind
+  retry:
+    max: 1
+    when:
+      - script_failure
+  before_script:
+    - 'docker system prune -f'
+    - 'docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY'
+    - 'echo $ARG '
+  after_script:
+    - docker logout $CI_REGISTRY
+
+.build_web: &build_web
+  <<: *build_image
+  variables:
+    IMAGE: IMAGE
+    TAG: tag
+    FOLDER: ./web
+    CURRENT_VERSION: CURRENT_VERSION
+  script:
+    - docker build --build-arg COMMIT_TIMESTAMP=$CI_COMMIT_TIMESTAMP --build-arg CURRENT_VERSION=$CURRENT_VERSION -f $FOLDER/Dockerfile -t $IMAGE:${TAG} $FOLDER
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $IMAGE:${TAG}
+    - docker logout ${CI_REGISTRY}
+
+prod_web:
+  <<: *build_web
+  variables:
+    IMAGE: ${CI_REGISTRY_IMAGE}/web
+    TAG: prod
+    FOLDER: ./web
+    CURRENT_VERSION: ${CI_COMMIT_SHORT_SHA} 
+  when: manual
+
+app:
+  stage: deploy
+  script:
+    - echo "Start building"
+    - sh gradlew app:quarkusBuild
+    - '[ -e /data/m-go/run.pid ] && /usr/bin/kill -9 $(cat /data/m-go/run.pid); rm -rf  /data/m-go/run.pid || echo "app doesn t run"'
+    - rm -f /data/m-go/app-1.0.0-SNAPSHOT-runner.jar
+    - cp app/build/app-1.0.0-SNAPSHOT-runner.jar /data/m-go/
+    - cd /data/m-go
+    - nohup java -jar /data/m-go/app-1.0.0-SNAPSHOT-runner.jar&
+    - /usr/bin/echo $! > /data/m-go/run.pid
+  only:
+    - master
+    - main
+  variables:
+    GIT_STRATEGY : clone
+
+api:
+  stage: deploy
+  script:
+    - echo "Start building"
+    - sh gradlew api:quarkusBuild
+    - '[ -e /data/m-go/run_api.pid ] && /usr/bin/kill -9 $(cat /data/m-go/run_api.pid); rm -rf  /data/m-go/run_api.pid || echo "api doesn t run "'
+    - rm -f /data/m-go/api-1.0.0-SNAPSHOT-runner.jar
+    - cp api/build/api-1.0.0-SNAPSHOT-runner.jar /data/m-go/
+    - cd /data/m-go
+    - nohup java -jar /data/m-go/api-1.0.0-SNAPSHOT-runner.jar&
+    - /usr/bin/echo $! > /data/m-go/run_api.pid
+  only:
+    - master
+    - main
+  variables:
+    GIT_STRATEGY : clone
+
+
+web:
+  stage: deploy
+  script:
+    - echo "Start building"
+    - sh yarn
+    - sh yarn build
+    - sh yarn start
+  only:
+    - master
+    - main
+  variables:
+    GIT_STRATEGY : clone
+
+
+payment:
+  stage: deploy
+  script:
+    - echo "Start building"
+    - sh yarn
+    - sh yarn build
+    - sh yarn start
+  only:
+    - master
+    - main
+  variables:
+    GIT_STRATEGY : clone
+
+web_testing:
+  stage: test
+  script:
+    - echo "Start building"
+    - sh yarn
+    - sh yarn build
+    - sh yarn start
+    
+  when: manual
+  variables:
+    GIT_STRATEGY : clone
+
+app_testing:
+  stage: test
+  script:
+    - echo "Start building"
+    - sh gradlew app:quarkusBuild
+    - '[ -e /data/m-go/run.pid ] && /usr/bin/kill -9 $(cat /data/m-go/run.pid); rm -rf  /data/m-go/run.pid || echo "app doesn t run"'
+    - rm -f /data/m-go/app-1.0.0-SNAPSHOT-runner.jar
+    - cp app/build/app-1.0.0-SNAPSHOT-runner.jar /data/m-go/
+    - cd /data/m-go
+    - nohup java -jar /data/m-go/app-1.0.0-SNAPSHOT-runner.jar&
+    - /usr/bin/echo $! > /data/m-go/run.pid
+  when: manual
+  variables:
+    GIT_STRATEGY : clone
+
+api_testing:
+  stage: test
+  script: 
+    - echo "Start building"
+    - sh gradlew api:quarkusBuild
+    - '[ -e /data/m-go/run_api.pid ] && /usr/bin/kill -9 $(cat /data/m-go/run_api.pid); rm -rf  /data/m-go/run_api.pid || echo "api doesn t run "'
+    - rm -f /data/m-go/api-1.0.0-SNAPSHOT-runner.jar
+    - cp api/build/api-1.0.0-SNAPSHOT-runner.jar /data/m-go/
+    - cd /data/m-go
+    - nohup java -jar /data/m-go/api-1.0.0-SNAPSHOT-runner.jar&
+    - /usr/bin/echo $! > /data/m-go/run_api.pid
+  when: manual
+  variables:
+    GIT_STRATEGY : clone

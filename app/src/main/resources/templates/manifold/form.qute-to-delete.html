@@ -1,0 +1,385 @@
+{#include master} {#style}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/plugins/datatables/css/dataTables.bootstrap4.min.css"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/plugins/datatables/css/responsive.bootstrap4.min.css"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/plugins/datatables/css/buttons.dataTables.min.css"
+/>
+
+<!-- <link rel="stylesheet" type="text/css" href="/styles/style.min.css" /> -->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/plugins/jquery-steps/jquery.steps.css"
+/>
+{/style} {#body}
+<div class="pd-ltr-20 xs-pd-20-10">
+  <div class="min-height-200px">
+    <div class="pd-20 card-box mb-30">
+      <div class="clearfix">
+        <h4 class="text-blue h4">Manifold</h4>
+        <p class="mb-30">compléter les étapes</p>
+      </div>
+      <div class="wizard-content">
+        <form
+          method="post"
+          id="manifold-form"
+          autocomplete="off"
+          class="tab-wizard wizard-circle wizard"
+          action="/manifold/form.html";
+        >
+          <input type="hidden" name="depart" value="{departure.iddeparture}" />
+          <input
+            type="hidden"
+            id="depart-ville-depart"
+            value="{departure.startin.name}"
+          />
+          <input
+            type="hidden"
+            id="depart-ville-destination"
+            value="{departure.destination.name}"
+          />
+
+          <h5>Informations générales</h5>
+          <section>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="carmatricule">Immatriculation :</label>
+                  <input
+                    id="carmatricule"
+                    name="carmatricule"
+                    value="{departure.carmatricule}"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="driver1">Conducteur 1</label>
+                  <select
+                    required
+                    id="driver1"
+                    class="custom-select2 form-control"
+                    name="driver1"
+                    style="width: 100%; height: 38px"
+                  >
+                  <option></option>
+                    {#for employee in drivers}
+                    <option value="{employee.idcompanyemployee}"
+                     
+                    {#if departure && departure.driver && departure.driver.idcompanyemployee == employee.idcompanyemployee }selected {/if}
+                    >
+                      {employee.name}
+                    </option>
+                    {/for}
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="driver2">Conducteur 2</label>
+                  <select
+                    required
+                    id="driver2"
+                    class="custom-select2 form-control"
+                    name="driver2"
+                    style="width: 100%; height: 38px"
+                  >
+                  <option></option>
+                    {#for employee in drivers}
+                    <option value="{employee.idcompanyemployee}"
+                    {#if departure && departure.driver2 && departure.driver2.idcompanyemployee == employee.idcompanyemployee }selected {/if}
+                    >
+                      {employee.name}
+                    </option>
+                    {/for}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Step 2 -->
+          <h5>Voyageurs</h5>
+          <section>
+            <input type="hidden" name="manifolds" id="manifolds"/>
+            <table id="clients-table" class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">Place n°</th>
+                  <th>Nom</th>
+									<th>Adresse</th>
+									<th>Pièce d'identité</th>
+									<th>Contact</th>
+									<th>Adresse du contact</th>
+                  <th>Tél du contact</th>
+									<th class="datatable-nosort">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+                {#for manifold in manifolds}
+                <tr 
+                data-iddeparturemanifold="{manifold.iddeparturemanifold}"
+                data-placenumber="{manifold.placenumber}"
+                data-civility="{manifold.civility}"
+                data-fname="{manifold.fname}"
+                data-lname="{manifold.lname}"
+                data-address="{manifold.address}"
+                data-idnumber="{manifold.idnumber}"
+                data-idissuedate="{manifold.idissuedate}"
+                data-idissuelocation="{manifold.idissuelocation}"
+                data-idduplicatadate="{manifold.idduplicatadate}"
+                data-idduplicatalocation="{manifold.idduplicatalocation}"
+                data-contactcivility="{manifold.contactcivility}"
+                data-contactfname="{manifold.contactfname}"
+                data-contactlname="{manifold.contactlname}"
+                data-contactaddress="{manifold.contactaddress}"
+                data-contactphone="{manifold.contactphone}"
+                data-contactphone1="{manifold.contactphone1}"
+                data-daty="{manifold.daty}"
+                data-idtype="{manifold.idtype}"
+                data-fullname="{manifold.fullname}"
+                data-idfullinfo="{manifold.idfullinfo}"
+                data-contactfullname="{manifold.contactfullname}"
+                data-contactallphones="{manifold.contactallphones}"
+                >
+									<td class="table-plus">{manifold.placenumber}</td>
+                  <td>{manifold.fullname}</td>
+									<td>{manifold.address}</td>
+									<td>{manifold.idfullinfo}</td>
+									<td>{manifold.contactfullname}</td>
+									<td>{manifold.contactaddress}</td>
+                  <td>{manifold.contactallphones}</td>
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<!-- <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a> -->
+												<a class="dropdown-item edit-action" href="#"><i class="dw dw-edit2"></i> Modifier</a>
+												<a class="dropdown-item delete-action" href="#"><i class="dw dw-delete-3"></i> Supprimer</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+
+                {/for}
+							</tbody>
+						</table>
+          </section>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="manifold-client-form" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" >Client</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+              <form
+              method="post"
+              id="manifold-client-form-form"
+              autocomplete="off"
+            >
+            <input type="hidden" name="iddeparturemanifold"/>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="col-form-label">Place n°</label>
+                  <input required name="placenumber" class="form-control" type="number">
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Civilité</label>
+                  <select name="civility" class="form-control">
+                      <option>Mr</option>
+                      <option>Mme</option>
+                      <option>Mlle</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input required name="fname"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Adresse</label>
+                  <input name="address"  type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Type de pièce d'identité</label>
+                  <select
+                    class="custom-select2 form-control"
+                    name="idtype"
+                    style="width: 100%; height: 38px"
+                  >
+                    {#for idtype in idtypes}
+                    <option value="{idtype.ididtype}"
+                    >
+                      {idtype.idtypecol}
+                    </option>
+                    {/for}
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Pièce d'identité n° </label>
+                  <input name="idnumber"  type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Pièce d'identité fait à </label>
+                  <input name="idissuelocation"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Pièce d'identité fait le </label>
+                  <input name="idissuedate"
+                                   class="form-control datetimepicker-range"
+                                   placeholder="Choisir date" type="text">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Duplicata délivré à </label>
+                  <input name="idduplicatalocation"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Duplicata délivré le </label>
+                  <input name="idduplicatadate"
+                                   class="form-control datetimepicker-range"
+                                   placeholder="Choisir date" type="text">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Civilité du contact</label>
+                  <select name="contactcivility" class="form-control">
+                      <option>Mr</option>
+                      <option>Mme</option>
+                      <option>Mlle</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Nom du contact</label>
+                  <input name="contactfname"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Adresse du contact</label>
+                  <input name="contactaddress"  type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Tél. du contact 1</label>
+                  <input name="contactphone"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Tél. du contact 2</label>
+                  <input name="contactphone1"  type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+
+
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" id="validate-client-form">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/body} {#script}
+<script src="/plugins/jquery-steps/jquery.steps.js"></script>
+<script>
+
+  // WHY: I dont like call api to fetch idtypes 
+   var ALL_ID_TYPES = JSON.parse('{idtypesJsonString.raw}')
+
+</script>
+
+<script src="/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="/plugins/datatables/js/dataTables.buttons.min.js"></script>
+<script src="/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<script src="/scripts/manifold-form.js"></script>
+{#if hasMessage}
+<script>
+  swal({
+    /*title: 'Bien!',*/
+    text: "{message}",
+    type: "success",
+    showCancelButton: false,
+    confirmButtonClass: "btn btn-success",
+    cancelButtonClass: "btn btn-danger",
+  });
+</script>
+{/if} {/script} {/}

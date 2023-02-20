@@ -1,0 +1,161 @@
+body,
+html {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+  font-size: 14px;
+  margin: 0;
+  height: 100%;
+  background-color: #ecf0f4;
+  font-family: Montserrat;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+  width: 100%;
+
+}
+
+.login-content .box {
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+  margin: auto;
+  display: flex;
+  width: 100%;
+  max-width: 700px;
+
+}
+
+
+.title2{
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #0D4D78;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  width: 100%;
+}
+
+.form-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#kc-form,#kc-reset-password-form,.form-container>form{
+  width: 100%;
+}
+
+.app-field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-field-group-label{
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #0D4D78;
+  padding: 12px 0 4px 0;
+}
+
+.app-field-group-input {
+  height: 24px;
+  font-family: Montserrat;
+  box-sizing: border-box;
+  height: 32px;
+  background: rgba(219, 232, 240, 0.4);  
+  border: 1px solid #DBE8F0;
+  width: 100%;
+}
+
+#kc-form-login .app-form-setting {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+
+.app-primary-btn{
+  width: 100%;
+  height: 36px;
+  border-radius: 2px;
+  background-color: #144e78;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  border-style: none;
+  margin-top: 30px;
+  cursor: pointer;
+}
+.app-primary-btn:hover {
+  background: #09314e;
+}
+
+
+
+
+.login-content .sider-bg {
+  max-height: 100%;
+  border-radius: 5px 0 0 5px;
+}
+
+#kc-registration-container,#kc-form-options{
+  padding-top: 12px;
+}
+
+
+
+
+.logo-container{
+  display: none;
+}
+
+@media (max-width:576px) {
+  .app-sider{
+    display: none;
+  }
+  .logo-container {
+    display: block;
+  }
+}
+
+
+.copyright {
+  text-align: center;
+  font-size: 14px;
+  opacity: .54;
+  position: relative;
+}
